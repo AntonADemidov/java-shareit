@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.item.dto.Item;
 import ru.practicum.shareit.user.dto.User;
@@ -16,6 +17,7 @@ import java.util.Collection;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
@@ -27,6 +29,7 @@ public class UserServiceImpl implements UserService {
         this.itemRepository = itemRepository;
     }
 
+    @Transactional
     @Override
     public User createUser(User user) {
         User newUser = userRepository.save(user);
@@ -34,11 +37,13 @@ public class UserServiceImpl implements UserService {
         return newUser;
     }
 
+
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(String.format("Пользователь с id #%d отсутствует в базе.", id)));
     }
 
+    @Transactional
     @Override
     public User updateUser(UserDtoFromUser userDtoFromUser, Long id) {
         User user = getUserById(id);
@@ -63,6 +68,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
         User user = getUserById(id);
@@ -74,6 +80,7 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(user.getId());
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         userRepository.deleteAll();

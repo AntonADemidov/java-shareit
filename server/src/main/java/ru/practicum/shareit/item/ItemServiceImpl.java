@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.PageNumber;
 import ru.practicum.shareit.booking.BookingMapper;
 import ru.practicum.shareit.booking.BookingRepository;
@@ -33,6 +34,7 @@ import java.util.Objects;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ItemServiceImpl implements ItemService {
     UserService userService;
@@ -51,6 +53,7 @@ public class ItemServiceImpl implements ItemService {
         this.itemRequestRepository = itemRequestRepository;
     }
 
+    @Transactional
     @Override
     public ItemDtoForUser createItem(Long userId, ItemDtoFromUserCreation itemDto) throws ItemValidationException {
         User user = userService.getUserById(userId);
@@ -66,6 +69,7 @@ public class ItemServiceImpl implements ItemService {
         return getItemDtoForUserById(userId, newItem.getId());
     }
 
+
     private ItemRequest validateItemRequest(Long requestId) {
         ItemRequest itemRequest = null;
 
@@ -75,6 +79,7 @@ public class ItemServiceImpl implements ItemService {
         return itemRequest;
     }
 
+    @Transactional
     @Override
     public ItemDtoForUser updateItem(Long userId, ItemDtoFromUser itemDto, Long itemId) {
         User user = userService.getUserById(userId);
@@ -173,6 +178,7 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(String.format("Вещь с id #%d отсутствует в базе.", id)));
     }
 
+    @Transactional
     @Override
     public CommentDtoForUser addComment(Long userId, CommentDtoFromUser commentDtoFromUser, Long itemId, LocalDateTime creation) throws ItemValidationException {
         LocalDateTime moment = Objects.requireNonNullElseGet(creation, LocalDateTime::now);
@@ -247,16 +253,19 @@ public class ItemServiceImpl implements ItemService {
         return result;
     }
 
+    @Transactional
     @Override
     public void deleteItem(Long id) {
         itemRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAllItems() {
         itemRepository.deleteAll();
     }
 
+    @Transactional
     @Override
     public void deleteAllComments() {
         commentRepository.deleteAll();

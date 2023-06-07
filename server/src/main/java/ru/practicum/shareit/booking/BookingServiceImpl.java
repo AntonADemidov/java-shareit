@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.PageNumber;
 import ru.practicum.shareit.booking.dto.Booking;
 import ru.practicum.shareit.booking.dto.BookingDtoFromUser;
@@ -32,6 +33,7 @@ import java.util.Objects;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class BookingServiceImpl implements BookingService {
     UserService userService;
@@ -45,6 +47,7 @@ public class BookingServiceImpl implements BookingService {
         this.bookingRepository = bookingRepository;
     }
 
+    @Transactional
     @Override
     public Booking createBooking(Long userId, BookingDtoFromUser bookingDtoFromUser) throws BookingValidationException {
         User user = userService.getUserById(userId);
@@ -65,6 +68,7 @@ public class BookingServiceImpl implements BookingService {
         return newBooking;
     }
 
+    @Transactional
     @Override
     public Booking updateBookingStatus(Long userId, Long id, Boolean value) throws BookingValidationException {
         Booking booking = getBookingById(userId, id);
@@ -184,6 +188,7 @@ public class BookingServiceImpl implements BookingService {
         return item;
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         bookingRepository.deleteAll();

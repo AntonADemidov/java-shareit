@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.PageNumber;
 import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.item.ItemService;
@@ -29,6 +30,7 @@ import java.util.Objects;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ItemRequestServiceImpl implements ItemRequestService {
     ItemRequestRepository itemRequestRepository;
@@ -43,6 +45,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         this.itemService = itemService;
     }
 
+    @Transactional
     @Override
     public ItemRequestDtoForUser createItemRequest(Long userId, ItemRequestDtoFromUser itemRequestDtoFromUser) {
         User user = userService.getUserById(userId);
@@ -94,6 +97,7 @@ public class ItemRequestServiceImpl implements ItemRequestService {
         return itemRequestDtoForUserList;
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         itemRequestRepository.deleteAll();
