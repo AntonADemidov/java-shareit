@@ -20,7 +20,7 @@ import java.util.Collection;
 public class BookingController {
     BookingService bookingService;
     private static final String actionWithId = "/{id}";
-    private static final String userHeader = "X-Sharer-User-Id";
+    static final String userHeader = "X-Sharer-User-Id";
 
     @Autowired
     public BookingController(BookingServiceImpl bookingService) {

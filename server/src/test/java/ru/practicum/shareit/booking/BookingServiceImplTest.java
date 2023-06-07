@@ -359,12 +359,6 @@ public class BookingServiceImplTest {
         bookingService.updateBookingStatus(newUser.getId(), booking2.getId(), false);
         targetBookings = bookingService.getBookingsOfUser(GetBookingRequest.of(newSecondUser.getId(), State.REJECTED, 0, 20));
         assertThat(targetBookings, hasSize(2));
-
-        /*final BookingValidationException exception = assertThrows(
-                BookingValidationException.class,
-                () -> bookingService.getBookingsOfUser(GetBookingRequest.of(newSecondUser.getId(), State.UNSUPPORTED_STATUS, 0, 20)));
-        BookingErrorResponse bookingErrorResponse = new BookingErrorResponse(exception.getMessage());
-        assertEquals(bookingErrorResponse.getError(), exception.getMessage());*/
     }
 
     @Test

@@ -16,7 +16,7 @@ import java.util.Collection;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ItemRequestController {
     ItemRequestService itemRequestService;
-    private static final String userHeader = "X-Sharer-User-Id";
+    static final String userHeader = "X-Sharer-User-Id";
 
     @Autowired
     public ItemRequestController(ItemRequestServiceImpl itemRequestService) {

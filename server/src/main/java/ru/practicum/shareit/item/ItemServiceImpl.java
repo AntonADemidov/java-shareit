@@ -220,6 +220,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Collection<Item> searchItems(String text, int from, int size) {
         List<Item> result = new ArrayList<>();
+        String anyText = "%";
 
         if (text.isBlank()) {
             return result;
@@ -227,7 +228,7 @@ public class ItemServiceImpl implements ItemService {
 
         QItem item = QItem.item;
         List<BooleanExpression> conditions = new ArrayList<>();
-        String condition = "%" + text + "%";
+        String condition = String.format("%s%s%s", anyText, text, anyText);
 
         conditions.add((item.name.likeIgnoreCase(condition)).or(item.description.likeIgnoreCase(condition)));
         conditions.add(item.available.eq(true));

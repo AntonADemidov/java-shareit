@@ -1,5 +1,7 @@
 package ru.practicum.shareit.booking;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -15,8 +17,9 @@ import ru.practicum.shareit.client.BaseClient;
 import java.util.Map;
 
 @Service
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class BookingClient extends BaseClient {
-    private static final String API_PREFIX = "/bookings";
+    static String API_PREFIX = "/bookings";
 
     @Autowired
     public BookingClient(@Value("${shareit-server.url}") String serverUrl, RestTemplateBuilder builder) {

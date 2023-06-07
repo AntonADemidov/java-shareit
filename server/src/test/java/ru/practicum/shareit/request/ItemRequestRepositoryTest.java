@@ -2,6 +2,7 @@ package ru.practicum.shareit.request;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,14 +21,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ItemRequestRepositoryTest {
     @Autowired
+    @NonFinal
     UserRepository userRepository;
     @Autowired
+    @NonFinal
     ItemRequestRepository itemRequestRepository;
-    final User user = TestHelper.getUserWithoutId1();
-    final User user2 = TestHelper.getUserWithoutId2();
+    User user = TestHelper.getUserWithoutId1();
+    User user2 = TestHelper.getUserWithoutId2();
+    String description = TestHelper.getDrill();
 
     @AfterEach
     void deleteAll() {
@@ -46,7 +50,7 @@ public class ItemRequestRepositoryTest {
         User savedUser = userRepository.save(user);
 
         LocalDateTime moment = LocalDateTime.now();
-        ItemRequest request = new ItemRequest("Хотел бы воспользоваться обычной дрелью", savedUser, moment);
+        ItemRequest request = new ItemRequest(description, savedUser, moment);
         ItemRequest savedRequest = itemRequestRepository.save(request);
 
         assertThat(savedRequest).isNotNull();
@@ -59,7 +63,7 @@ public class ItemRequestRepositoryTest {
         User savedUser2 = userRepository.save(user2);
         LocalDateTime moment = LocalDateTime.now();
 
-        ItemRequest request = new ItemRequest("Хотел бы воспользоваться обычной дрелью", savedUser, moment);
+        ItemRequest request = new ItemRequest(description, savedUser, moment);
         ItemRequest savedRequest = itemRequestRepository.save(request);
 
         ItemRequest request2 = new ItemRequest("Ищу аккумуляторную дрель", savedUser2, moment);

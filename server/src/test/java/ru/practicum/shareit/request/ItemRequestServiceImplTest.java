@@ -42,6 +42,8 @@ public class ItemRequestServiceImplTest {
     EntityManager em;
     User user = TestHelper.getUserWithoutId1();
     User secondUser = TestHelper.getUserWithoutId2();
+    String description = TestHelper.getShoeBrush();
+    String description2 = TestHelper.getToothBrush();
 
     @AfterEach
     void deleteAll() {
@@ -56,7 +58,7 @@ public class ItemRequestServiceImplTest {
         User newUser = userService.createUser(user);
 
         ItemRequestDtoFromUser request = new ItemRequestDtoFromUser();
-        request.setDescription("Хотел бы воспользоваться щёткой для обуви");
+        request.setDescription(description);
 
         ItemRequestDtoForUser checkRequest = requestService.createItemRequest(newUser.getId(), request);
 
@@ -75,10 +77,10 @@ public class ItemRequestServiceImplTest {
         User newUser = userService.createUser(user);
 
         ItemRequestDtoFromUser request = new ItemRequestDtoFromUser();
-        request.setDescription("Хотел бы воспользоваться щёткой для обуви");
+        request.setDescription(description);
 
         ItemRequestDtoFromUser request2 = new ItemRequestDtoFromUser();
-        request2.setDescription("Хотел бы воспользоваться зубной счёткой");
+        request2.setDescription(description2);
 
         ItemRequestDtoForUser checkRequest = requestService.createItemRequest(newUser.getId(), request);
         ItemRequestDtoForUser checkRequest2 = requestService.createItemRequest(newUser.getId(), request2);
@@ -105,7 +107,7 @@ public class ItemRequestServiceImplTest {
         User newUser = userService.createUser(user);
 
         ItemRequestDtoFromUser request = new ItemRequestDtoFromUser();
-        request.setDescription("Хотел бы воспользоваться щёткой для обуви");
+        request.setDescription(description);
 
         ItemRequestDtoForUser checkRequest = requestService.createItemRequest(newUser.getId(), request);
 
@@ -127,7 +129,7 @@ public class ItemRequestServiceImplTest {
         User newUser = userService.createUser(user);
 
         ItemRequestDtoFromUser request = new ItemRequestDtoFromUser();
-        request.setDescription("Хотел бы воспользоваться щёткой для обуви");
+        request.setDescription(description);
 
         ItemRequestDtoForUser checkRequest = requestService.createItemRequest(newUser.getId(), request);
         ItemRequestDtoForUser newCheckRequest = requestService.getItemRequestById(newUser.getId(), checkRequest.getId());
@@ -159,10 +161,10 @@ public class ItemRequestServiceImplTest {
         User newSecondUser = userService.createUser(secondUser);
 
         ItemRequestDtoFromUser request = new ItemRequestDtoFromUser();
-        request.setDescription("Хотел бы воспользоваться щёткой для обуви");
+        request.setDescription(description);
 
         ItemRequestDtoFromUser request2 = new ItemRequestDtoFromUser();
-        request2.setDescription("Хотел бы воспользоваться зубной счёткой");
+        request2.setDescription(description2);
 
         ItemRequestDtoForUser checkRequest = requestService.createItemRequest(newUser.getId(), request);
         ItemRequestDtoForUser checkRequest2 = requestService.createItemRequest(newUser.getId(), request2);
@@ -189,13 +191,13 @@ public class ItemRequestServiceImplTest {
         User newSecondUser = userService.createUser(secondUser);
 
         ItemRequestDtoFromUser request = new ItemRequestDtoFromUser();
-        request.setDescription("Хотел бы воспользоваться щёткой для обуви");
+        request.setDescription(description);
 
         ItemRequestDtoFromUser request2 = new ItemRequestDtoFromUser();
-        request2.setDescription("Хотел бы воспользоваться зубной счёткой");
+        request2.setDescription(description2);
 
         ItemRequestDtoFromUser request3 = new ItemRequestDtoFromUser();
-        request3.setDescription("Хотел бы воспользоваться дрелью");
+        request3.setDescription(TestHelper.getDrill());
 
         requestService.createItemRequest(newUser.getId(), request);
         requestService.createItemRequest(newUser.getId(), request2);

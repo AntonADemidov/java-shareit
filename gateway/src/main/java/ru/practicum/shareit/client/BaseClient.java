@@ -1,5 +1,7 @@
 package ru.practicum.shareit.client;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -8,8 +10,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Map;
 
+@FieldDefaults(makeFinal = true, level = AccessLevel.PROTECTED)
 public class BaseClient {
-    protected final RestTemplate rest;
+    RestTemplate rest;
 
     public BaseClient(RestTemplate rest) {
         this.rest = rest;

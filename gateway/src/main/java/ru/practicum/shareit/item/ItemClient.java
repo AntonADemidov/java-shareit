@@ -19,7 +19,7 @@ import java.util.Map;
 @Service
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ItemClient extends BaseClient {
-    private static final String API_PREFIX = "/items";
+    static String API_PREFIX = "/items";
 
     @Autowired
     public ItemClient(@Value("${shareit-server.url}") String serverUrl, RestTemplateBuilder builder) {

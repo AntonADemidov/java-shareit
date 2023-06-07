@@ -16,7 +16,7 @@ public class User {
     Long id;
     @NotBlank
     String name;
-    @NotNull
     @Email
+    @NotNull
     String email;
 }

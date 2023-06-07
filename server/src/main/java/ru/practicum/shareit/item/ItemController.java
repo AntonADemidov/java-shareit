@@ -22,7 +22,7 @@ import java.util.Collection;
 public class ItemController {
     ItemService itemService;
     private static final String actionWithId = "/{id}";
-    private static final String userHeader = "X-Sharer-User-Id";
+    static final String userHeader = "X-Sharer-User-Id";
 
     @Autowired
     public ItemController(ItemServiceImpl itemService) {

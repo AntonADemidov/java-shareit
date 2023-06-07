@@ -31,6 +31,8 @@ public class TestHelper {
     static String approved = "approved";
     static String text = "text";
     static String shoeBrush = "Хотел бы воспользоваться щёткой для обуви";
+    static String toothBrush = "Хотел бы воспользоваться зубной счёткой";
+    static String drill = "Хотел бы воспользоваться обычной дрелью";
     static User user1 = new User(1L, "user", "user@user.com");
     static User user2 = new User(2L, "update", "update@user.com");
     static User userWithoutId1 = new User("user", "user@user.com");
@@ -166,5 +168,13 @@ public class TestHelper {
 
     public static String getExpItemId() {
         return expItemId;
+    }
+
+    public static String getToothBrush() {
+        return toothBrush;
+    }
+
+    public static String getDrill() {
+        return drill;
     }
 }
